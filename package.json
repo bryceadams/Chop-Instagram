@@ -1,0 +1,24 @@
+{
+  "name": "chop",
+  "version": "1.0.0",
+  "description": "Chop for Instagram",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bryce Adams",
+  "license": "MIT",
+  "dependencies": {
+    "connect-redis": "^3.0.2",
+    "cookies": "^0.5.1",
+    "dotenv": "^1.2.0",
+    "express": "^4.13.3",
+    "express-session": "^1.13.0",
+    "instagram-node": "^0.5.8",
+    "jade": "^1.11.0",
+    "jstransformer-marked": "^1.0.1",
+    "keygrip": "^1.0.1",
+    "marked": "^0.3.5",
+    "node-sass": "^3.4.2"
+  }
+}

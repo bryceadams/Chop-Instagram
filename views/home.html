@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <title>Chop for Instagram</title>
+        <link rel="stylesheet" href="styles/styles.css" />
+    </head>
+    <body>
+        <div id="app">
+            <div class="profile">
+                <img :src="profile.profile_picture" />
+                <h2>{{ profile.username }}</h2>
+                <h4>{{ profile.bio }}</h4>
+            </div>
+
+            <ul class="media">
+                <template v-for="item in media">
+                    <li data-id="{{ item.id }}">
+                        <img :src="item.images.thumbnail.url" class="thumbnail" />
+                        <div class="popup-wrapper">
+                            <div class="popup-header">
+                                <div class="popup-author">
+                                    <img :src="item.user.profile_picture" />
+                                    <div>{{ item.user.username }}</div>
+                                </div>
+                                <div class="popup-date">
+                                    {{ getMoment(item.created_time) }}
+                                </div>
+                            </div>
+                            <div v-if="item.videos">
+                                <video :width="item.videos.standard_resolution.width / 2" :height="item.videos.standard_resolution.height / 2" :poster="item.images.standard_resolution.url" autoplay loop muted>
+                                    <source :src="item.videos.standard_resolution.url" type="video/mp4">
+                                    Your browser does not support video!
+                                </video>
+                            </div>
+                            <div v-else>
+                                <img :src="item.images.standard_resolution.url" class="popup-image" />
+                            </div>
+                            <div class="popup-caption" v-if="item.caption">
+                                {{ item.caption.text }}
+                            </div>
+                            <div class="popup-footer">
+                                <div class="popup-stats">
+                                    <strong>{{ item.likes.count }}</strong> Likes <strong>{{ item.comments.count }}</strong> Comments
+                                </div>
+                                <div class="popup-link">
+                                    <a href="{{ item.link }}">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+            <button v-on:click="loadMore()">Load More?</button>
+
+            <pre><a href="/auth/forget">Log out?</a></pre>
+        </div>
+
+        <footer>
+            Chop for Instagram
+        </footer>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="//cdn.jsdelivr.net/vue/1.0.15/vue.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.13/vue-resource.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js"></script>
+        <script type="text/javascript">
+            vm = new Vue({
+                el: '#app',
+                data: {
+                    profile: '',
+                    media: [],
+                },
+                methods: {
+                    getMoment: function(timestamp) {
+                        return moment.unix(timestamp).fromNow();
+                    },
+                    getItem: function(image) {
+                        const item = $.grep(this.media, function(e){ return e.id == image; });
+                        console.log(item);
+                    },
+                    getMedia: function(params) {
+                        const mediaParams = params ? params : '';
+                        this.$http.get('/api/media' + mediaParams, function (data) {
+                            this.media = this.media.concat(data.media);
+                        }).error(function (data, status, request) {
+                            this.$set('media', false);
+                            console.log(data);
+                            console.log(status);
+                        })
+                    },
+                    loadMore: function() {
+                        const lastMediaID = $('ul.media li').last().data('id');
+                        this.getMedia('?last_media_id=' + lastMediaID);
+                    },
+                    getProfile: function() {
+                        this.$http.get('/api/profile', function (data) {
+                            this.$set('profile', data);
+                        }).error(function (data, status, request) {
+                            this.$set('profile', false);
+                            console.log(data);
+                            console.log(status);
+                        })
+                    },
+                    start: function() {
+                        this.getProfile();
+                        this.getMedia();
+                    },
+                }
+            });
+            vm.start();
+            Vue.config.debug = true;
+
+            var timer;
+            $(document).on('mouseover', 'ul.media li', function() {
+                const thisElement = $(this);
+
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
+
+                timer = setTimeout(function() {
+                    $(thisElement).addClass('hover');
+                }, 500);
+            });
+            $(document).on('mouseleave', 'ul.media li', function() {
+                clearTimeout(timer);
+                timer = null;
+                $(this).removeClass('hover');
+            });
+
+
+            $(document).ready(function() {
+                window.onscroll = function (ev) {
+                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                        vm.loadMore();
+                    }
+                };
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,75 @@
+body {
+  font-family: "Helvetica", sans-serif; }
+
+ul.media {
+  background: #083358;
+  margin: 0 auto;
+  max-width: 1000px; }
+  ul.media li {
+    display: inline-block;
+    list-style-type: none;
+    position: relative;
+    -webkit-transition: opacity 200ms ease-in-out;
+    -moz-transition: opacity 200ms ease-in-out;
+    -o-transition: opacity 200ms ease-in-out;
+    transition: opacity 200ms ease-in-out; }
+    ul.media li:hover img.thumbnail {
+      opacity: 0.75; }
+    ul.media li.hover .popup-wrapper {
+      display: block; }
+    ul.media li .popup-wrapper {
+      background: #fff;
+      -webkit-box-shadow: 0px 0px 10px -1px #6b6b6b;
+      -moz-box-shadow: 0px 0px 10px -1px #6b6b6b;
+      box-shadow: 0px 0px 10px -1px #6b6b6b;
+      display: none;
+      position: absolute;
+      top: 0;
+      z-index: 5; }
+      ul.media li .popup-wrapper:hover {
+        opacity: 1 !important; }
+      ul.media li .popup-wrapper .popup-header {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: row;
+        flex-flow: row;
+        font-size: 14px;
+        padding: 11px 10px 7px; }
+        ul.media li .popup-wrapper .popup-header .popup-author {
+          -webkit-flex: auto;
+          flex: auto; }
+          ul.media li .popup-wrapper .popup-header .popup-author img {
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            border-radius: 100%;
+            width: 32px; }
+          ul.media li .popup-wrapper .popup-header .popup-author div {
+            display: inline-block;
+            padding-left: 5px;
+            padding-top: 8px;
+            vertical-align: top; }
+        ul.media li .popup-wrapper .popup-header .popup-date {
+          max-width: 100px;
+          padding-top: 8px; }
+      ul.media li .popup-wrapper .popup-image {
+        width: 300px; }
+      ul.media li .popup-wrapper .popup-caption {
+        font-size: 14px;
+        line-height: 1.4;
+        padding: 15px 8px; }
+      ul.media li .popup-wrapper .popup-footer {
+        border-top: 1px solid #ddd;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: row;
+        flex-flow: row;
+        font-size: 13px;
+        padding: 15px 10px; }
+        ul.media li .popup-wrapper .popup-footer .popup-stats {
+          -webkit-flex: auto;
+          flex: auto; }
+        ul.media li .popup-wrapper .popup-footer .popup-link {
+          max-width: 30px; }
+
+footer {
+  margin: 100px 0; }

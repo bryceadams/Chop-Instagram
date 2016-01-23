@@ -1,0 +1,97 @@
+body {
+  font-family: "Helvetica", sans-serif;
+}
+
+ul.media {
+  background: #083358;
+  margin: 0 auto;
+  max-width: 1000px;
+  li {
+    display: inline-block;
+    list-style-type: none;
+    position: relative;
+    -webkit-transition: opacity 200ms ease-in-out;
+    -moz-transition: opacity 200ms ease-in-out;
+    -o-transition: opacity 200ms ease-in-out;
+    transition: opacity 200ms ease-in-out;
+    &:hover {
+      img.thumbnail {
+        opacity: 0.75;
+      }
+    }
+    &.hover {
+      .popup-wrapper {
+        display: block;
+      }
+    }
+    .popup-wrapper {
+      background: #fff;
+      -webkit-box-shadow: 0px 0px 10px -1px rgba(107,107,107,1);
+      -moz-box-shadow: 0px 0px 10px -1px rgba(107,107,107,1);
+      box-shadow: 0px 0px 10px -1px rgba(107,107,107,1);
+      display: none;
+      position: absolute;
+      top: 0;
+      z-index: 5;
+      &:hover {
+        opacity: 1 !important;
+      }
+      .popup-header {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: row;
+        flex-flow: row;
+        font-size: 14px;
+        padding: 11px 10px 7px;
+        .popup-author {
+          -webkit-flex: auto;
+          flex: auto;
+          img {
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            border-radius: 100%;
+            width: 32px;
+          }
+          div {
+            display: inline-block;
+            padding-left: 5px;
+            padding-top: 8px;
+            vertical-align: top;
+          }
+        }
+        .popup-date {
+          max-width: 100px;
+          padding-top: 8px;
+        }
+      }
+      .popup-image {
+        width: 300px;
+      }
+      .popup-caption {
+        font-size: 14px;
+        line-height: 1.4;
+        padding: 15px 8px;
+      }
+      .popup-footer {
+        border-top: 1px solid #ddd;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: row;
+        flex-flow: row;
+        font-size: 13px;
+        padding: 15px 10px;
+        .popup-stats {
+          -webkit-flex: auto;
+          flex: auto;
+        }
+        .popup-link {
+          max-width: 30px;
+        }
+      }
+    }
+  }
+}
+
+footer {
+  margin: 100px 0;
+}
